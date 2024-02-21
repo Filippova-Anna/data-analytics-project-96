@@ -1,15 +1,15 @@
 with tab as (
-    select distinct on (visitor_id)
+    select distinct on (s.visitor_id)
         s.visitor_id,
-        visit_date,
+        s.visit_date,
         s."source" as utm_source,
         s.medium as utm_medium,
         s.campaign as utm_campaign,
-        lead_id,
-        created_at,
-        amount,
-        closing_reason,
-        status_id
+        l.lead_id,
+        l.created_at,
+        l.amount,
+        l.closing_reason,
+        l.status_id
     from sessions as s
     left join
         leads as l
@@ -24,7 +24,7 @@ with tab as (
             'tg',
             'social'
         )
-    order by visitor_id asc, visit_date desc
+    order by s.visitor_id asc, s.visit_date desc
 )
 
 select *
