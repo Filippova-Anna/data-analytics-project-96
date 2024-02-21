@@ -26,7 +26,7 @@ with tab as (
             'cpp',
             'tg',
             'social'
-    )
+        )
 ),
 
 tab_2 as (
