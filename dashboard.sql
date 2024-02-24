@@ -7,7 +7,7 @@ SELECT
     ROUND(total_cost / leads_count, 2) AS cpl,
     ROUND(total_cost / purchases_count, 2) AS cppu,
     ROUND((revenue - total_cost) / total_cost * 100, 2) AS roi
-FROM agg_last_click_all
+FROM agg_last_click_all;
 --Рассчет основных метрик (таблица)
 
 SELECT
@@ -19,9 +19,8 @@ GROUP BY
 	visit_date,
     utm_source
 ORDER BY AVG(visitors_count) DESC
-LIMIT
-	10000
-	OFFSET 0
+LIMIT 10000
+OFFSET 0;
 --Средняя посещаемость по каналам
 
 SELECT
@@ -31,7 +30,7 @@ FROM main.agg_last_click_all
 GROUP BY visit_date
 ORDER BY "AVG(visitors_count)" DESC
 LIMIT 5000
-OFFSET 0
+OFFSET 0;
 --Средняя посещаемость за июнь
 
 SELECT
@@ -43,7 +42,7 @@ WHERE utm_source IN ('yandex',
 GROUP BY utm_source
 ORDER BY "SUM(total_cost)" DESC
 LIMIT 10000
-OFFSET 0
+OFFSET 0;
 --Затраты на рекламу по источнику
 
 SELECT
@@ -53,7 +52,7 @@ FROM main.agg_last_click_all
 GROUP BY utm_source
 ORDER BY "SUM(leads_count)" DESC
 LIMIT 100
-OFFSET 0
+OFFSET 0;
 --Количество лидо приведенных из каналов
 
 SELECT
@@ -73,7 +72,7 @@ FROM
 GROUP BY utm_source
 ORDER BY "AVG(cpl)" DESC
 LIMIT 100
-OFFSET 0
+OFFSET 0;
 --Цена привлечения одного потенциального клиента с конкретной рекламной кампании
 
 SELECT
@@ -93,7 +92,7 @@ FROM
 GROUP BY utm_source
 ORDER BY "AVG(roi)" DESC
 LIMIT 10000
-OFFSET 0
+OFFSET 0;
 --Среднее значение ROI по источнику и компании
 
 with tab AS (
