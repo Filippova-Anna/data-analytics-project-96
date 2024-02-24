@@ -3,11 +3,11 @@ SELECT
     utm_source,
     utm_medium,
     utm_campaign,
-    ROUND(total_cost / visitors_count, 2) cpu,
-    ROUND(total_cost / leads_count, 2) cpl,
-    ROUND(total_cost / purchases_count, 2) cppu,
-    ROUND((revenue - total_cost) / total_cost * 100, 2) roi
-from 'agg_last_click_all'
+    ROUND(total_cost / visitors_count, 2) AS cpu,
+    ROUND(total_cost / leads_count, 2) AS cpl,
+    ROUND(total_cost / purchases_count, 2) AS cppu,
+    ROUND((revenue - total_cost) / total_cost * 100, 2) AS roi
+FROM agg_last_click_all
 --Рассчет основных метрик (таблица)
 
 SELECT
@@ -18,7 +18,7 @@ FROM main.agg_last_click_all
 GROUP BY
 	visit_date,
     utm_source
-ORDER BY "AVG(visitors_count)" DESC
+ORDER BY AVG(visitors_count) DESC
 LIMIT 10000
 OFFSET 0
 --Средняя посещаемость по каналам
@@ -95,17 +95,17 @@ LIMIT 10000
 OFFSET 0
 --Среднее значение ROI по источнику и компании
 
-with tab as(
-	select
+with tab AS (
+	SELECT
 		s.visitor_id,
-		min(s.visit_date::date) as first_visit,
-		l.created_at::date as lead_first
-	from sessions s
-	join leads l on l.visitor_id = s.visitor_id
-	group by 1, 3
-	order by 1
+		min(s.visit_date::date) AS first_visit,
+		l.created_at::date AS lead_first
+	FROM sessions s
+	JOIN leads l ON l.visitor_id = s.visitor_id
+	GROUP BY 1, 3
+	ORDER BY 1
 )
-select
+SELECT
 	avg(lead_first - first_visit)
-from tab;
+FROM tab;
 --Среднее время от визита до становления лидом
