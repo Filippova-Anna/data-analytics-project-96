@@ -19,8 +19,9 @@ GROUP BY
 	visit_date,
     utm_source
 ORDER BY AVG(visitors_count) DESC
-LIMIT 10000
-OFFSET 0
+LIMIT
+	10000
+	OFFSET 0
 --Средняя посещаемость по каналам
 
 SELECT
